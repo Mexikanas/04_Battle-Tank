@@ -8,12 +8,14 @@ void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto PlayerTank = GetPlayerTank();
-	if (PlayerTank)
+	auto ControlledTank = GetControlledTank();
+	if (!ControlledTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("The AI controller %s found player controller %s"), *GetControlledTank()->GetName(), *PlayerTank->GetName());
+		UE_LOG(LogTemp, Error, TEXT("The Player controller has not possessed pawn"));
 	}
-	else
+	
+	auto PlayerTank = GetPlayerTank();
+	if (!PlayerTank)
 	{
 		UE_LOG(LogTemp, Error, TEXT("The AI controller cannot find player tank"));
 	}
