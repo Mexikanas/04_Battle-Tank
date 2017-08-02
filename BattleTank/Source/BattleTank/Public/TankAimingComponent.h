@@ -16,6 +16,8 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
+	UTankAimingComponent();
+	
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
 	// TODO add SetTurretReference

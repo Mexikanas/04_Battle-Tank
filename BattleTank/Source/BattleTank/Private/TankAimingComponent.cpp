@@ -6,6 +6,13 @@
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
+#include "Engine/World.h"
+
+UTankAimingComponent::UTankAimingComponent()
+{
+	bWantsBeginPlay = true;
+	PrimaryComponentTick.bCanEverTick = true; // TODO Should this really tick?
+}
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
@@ -32,8 +39,16 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found"), Time);
 	}
-	 // if no solution found do nothing
+	else
+	{
+		// if no solution found do nothing
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: No aim solve found"), Time);
+	}
+	 
 }	 
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
