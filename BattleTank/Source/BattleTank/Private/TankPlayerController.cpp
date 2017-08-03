@@ -10,11 +10,7 @@ void ATankPlayerController::BeginPlay()
 	Super::BeginPlay();
 
 	auto ControlledTank = GetControlledTank();
-	if (ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("The player possesses %s"), *ControlledTank->GetName());
-	}
-	else
+	if (!ControlledTank)
 	{
 		UE_LOG(LogTemp, Error, TEXT("The Player controller has not possessed pawn"));
 	}
